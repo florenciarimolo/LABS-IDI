@@ -44,7 +44,7 @@ void MyGLWidget::resizeGL (int w, int h)
 
 void MyGLWidget::createBuffers ()
 {
-  glm::vec3 Vertices[9];  // Tres vèrtexs amb X, Y i Z
+  glm::vec3 Vertices[9];  // Nou vèrtexs amb X, Y i Z
   Vertices[0] = glm::vec3(0.0, -1.0, 0.0);  // inf dret
   Vertices[1] = glm::vec3(-0.5, -1.0, 0.0); // inf esq
   Vertices[2] = glm::vec3(-0.5, -0.5, 0.0); // sup esq
@@ -79,8 +79,8 @@ void MyGLWidget::carregaShaders()
   QOpenGLShader fs (QOpenGLShader::Fragment, this);
   QOpenGLShader vs (QOpenGLShader::Vertex, this);
   // Carreguem el codi dels fitxers i els compilem
-  fs.compileSourceFile("/Users/florenciarimolo/Dropbox/Informatica/idi/lab/bloc1/sessio1/ex3/shaders/fragshad.frag");
-  vs.compileSourceFile("/Users/florenciarimolo/Dropbox/Informatica/idi/lab/bloc1/sessio1/ex3/shaders/vertshad.vert");
+  fs.compileSourceFile("/Users/florenciarimolo/Dropbox/uni/idi/lab/bloc1/sessio1/ex3/shaders/fragshad.frag");
+  vs.compileSourceFile("/Users/florenciarimolo/Dropbox/uni/idi/lab/bloc1/sessio1/ex3/shaders/vertshad.vert");
   // Creem el program
   program = new QOpenGLShaderProgram(this);
   // Li afegim els shaders corresponents
