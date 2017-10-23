@@ -3,7 +3,6 @@
 #include <QOpenGLShader>
 #include <QOpenGLShaderProgram>
 #include <QKeyEvent>
-#include <math.h>
 #define GLM_FORCE_RADIANS
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
@@ -42,7 +41,7 @@ class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
     
     // Program
     QOpenGLShaderProgram *program;
-    GLuint VAO, VBO, VBO_color;
+    GLuint VAO, VBO_vert, VBO_color;
     float escala;
     float tx,ty,tz;
     float angle;
