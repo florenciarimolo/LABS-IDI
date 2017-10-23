@@ -41,7 +41,7 @@ class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
     QOpenGLShaderProgram *program;
     
     float  ex, ey, ez;  // factors d'escala
-    GLuint VAO, VBO, VBO_color, TGLoc;
+    GLuint VAO, VBO_vert, VBO_color, TGLoc;
     float escala;
     float delta_escala;
 };
