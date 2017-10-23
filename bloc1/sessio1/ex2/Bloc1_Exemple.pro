@@ -1,7 +1,7 @@
 TEMPLATE    = app
 QT         += opengl 
 
-INCLUDEPATH +=  /usr/include/glm
+INCLUDEPATH +=  /usr/local/Cellar/glm/0.9.8.5/include
 
 FORMS += MyForm.ui
 
