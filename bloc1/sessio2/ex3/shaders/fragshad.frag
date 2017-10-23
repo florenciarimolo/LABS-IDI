@@ -6,7 +6,7 @@ void main() {
     FragColor = vec4 (1.);
     int num = int(gl_FragCoord .y)/10;
     if (num % 2 == 0) {
-        if ( gl_FragCoord .x < 350.) {
+        if ( gl_FragCoord .x < 347.) {
             if (gl_FragCoord .y > 350.)
                 FragColor = vec4 (1. ,0. ,0. ,1.);   // vermell
             else FragColor = vec4 (1. ,1. ,0. ,1.);  // groc
