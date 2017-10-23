@@ -35,7 +35,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = Bloc1_Exemple1.0.0
-DISTDIR = /Users/florenciarimolo/Dropbox/Informatica/idi/lab/bloc1/sessio2/ex3/.tmp/Bloc1_Exemple1.0.0
+DISTDIR = /Users/florenciarimolo/Dropbox/Informatica/idi/lab/bloc1/sessio2/ex2/.tmp/Bloc1_Exemple1.0.0
 LINK          = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
 LFLAGS        = -stdlib=libc++ -headerpad_max_install_names $(EXPORT_ARCH_ARGS) -Wl,-syslibroot,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.10 -Wl,-rpath,@executable_path/Frameworks
 LIBS          = $(SUBLIBS) -F/usr/local/Cellar/qt/5.9.1/lib -framework QtOpenGL -framework QtWidgets -framework QtGui -framework QtCore -framework DiskArbitration -framework IOKit -framework OpenGL -framework AGL 
@@ -814,7 +814,7 @@ moc_MyForm.cpp: ui_MyForm.h \
 		MyForm.h \
 		moc_predefs.h \
 		/usr/local/Cellar/qt/5.9.1/bin/moc
-	/usr/local/Cellar/qt/5.9.1/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/local/Cellar/qt/5.9.1/mkspecs/macx-clang -I/Users/florenciarimolo/Dropbox/Informatica/idi/lab/bloc1/sessio2/ex3 -I/usr/local/Cellar/glm/0.9.8.5/include -I/usr/local/Cellar/qt/5.9.1/lib/QtOpenGL.framework/Headers -I/usr/local/Cellar/qt/5.9.1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/5.9.1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/5.9.1/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include -F/usr/local/Cellar/qt/5.9.1/lib MyForm.h -o moc_MyForm.cpp
+	/usr/local/Cellar/qt/5.9.1/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/local/Cellar/qt/5.9.1/mkspecs/macx-clang -I/Users/florenciarimolo/Dropbox/Informatica/idi/lab/bloc1/sessio2/ex2 -I/usr/local/Cellar/glm/0.9.8.5/include -I/usr/local/Cellar/qt/5.9.1/lib/QtOpenGL.framework/Headers -I/usr/local/Cellar/qt/5.9.1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/5.9.1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/5.9.1/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include -F/usr/local/Cellar/qt/5.9.1/lib MyForm.h -o moc_MyForm.cpp
 
 moc_MyGLWidget.cpp: /usr/local/Cellar/qt/5.9.1/lib/QtGui.framework/Headers/QOpenGLFunctions_3_3_Core \
 		/usr/local/Cellar/qt/5.9.1/lib/QtGui.framework/Headers/qopenglfunctions_3_3_core.h \
@@ -918,7 +918,7 @@ moc_MyGLWidget.cpp: /usr/local/Cellar/qt/5.9.1/lib/QtGui.framework/Headers/QOpen
 		MyGLWidget.h \
 		moc_predefs.h \
 		/usr/local/Cellar/qt/5.9.1/bin/moc
-	/usr/local/Cellar/qt/5.9.1/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/local/Cellar/qt/5.9.1/mkspecs/macx-clang -I/Users/florenciarimolo/Dropbox/Informatica/idi/lab/bloc1/sessio2/ex3 -I/usr/local/Cellar/glm/0.9.8.5/include -I/usr/local/Cellar/qt/5.9.1/lib/QtOpenGL.framework/Headers -I/usr/local/Cellar/qt/5.9.1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/5.9.1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/5.9.1/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include -F/usr/local/Cellar/qt/5.9.1/lib MyGLWidget.h -o moc_MyGLWidget.cpp
+	/usr/local/Cellar/qt/5.9.1/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/local/Cellar/qt/5.9.1/mkspecs/macx-clang -I/Users/florenciarimolo/Dropbox/Informatica/idi/lab/bloc1/sessio2/ex2 -I/usr/local/Cellar/glm/0.9.8.5/include -I/usr/local/Cellar/qt/5.9.1/lib/QtOpenGL.framework/Headers -I/usr/local/Cellar/qt/5.9.1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/5.9.1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/5.9.1/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include -F/usr/local/Cellar/qt/5.9.1/lib MyGLWidget.h -o moc_MyGLWidget.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:

@@ -29,7 +29,6 @@ class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
     
     // attribute locations
     GLuint vertexLoc;
-    GLuint colorLoc;
     
     // Program
     QOpenGLShaderProgram *program;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.4.0, 2017-10-05T20:46:57. -->
+<!-- Written by QtCreator 4.4.0, 2017-10-14T18:29:58. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -304,7 +304,7 @@
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Bloc1_Exemple</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Bloc1_Exemple2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/Users/florenciarimolo/Dropbox/Informatica/idi/lab/bloc1/sessio2/ex1/Bloc1_Exemple.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/Users/florenciarimolo/Dropbox/Informatica/idi/lab/bloc1/sessio2/ex2/Bloc1_Exemple.pro</value>
     <value type="bool" key="QmakeProjectManager.QmakeRunConfiguration.UseLibrarySearchPath">true</value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.CommandLineArguments"></value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.ProFile">Bloc1_Exemple.pro</value>

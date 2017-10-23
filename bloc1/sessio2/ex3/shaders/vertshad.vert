@@ -5,6 +5,6 @@ in vec3 vertex;
 //out vec3 fcolors;
 
 void main()  {
-    gl_Position = vec4 (vertex*0.5, 1.0);
-    //fcolors = color;
+    gl_Position = vec4 (0.5 * vertex, 1.0);
+  //  fcolors = color;
 }
