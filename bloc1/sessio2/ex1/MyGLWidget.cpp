@@ -49,28 +49,30 @@ void MyGLWidget::createBuffers ()
   Vertices[1] = glm::vec3(1.0, -1.0, 0.0);
   Vertices[2] = glm::vec3(0.0, 1.0, 0.0);
 
-  glm::vec3 Colors[3];  // Tres vèrtexs amb X, Y i Z
-    Colors[0] = glm::vec3(1.0, 0.0, 0.0);  // r
-    Colors[1] = glm::vec3(0.0, 1.0, 0.0);  // g
-    Colors[2] = glm::vec3(0.0, 0.0, 1.0);  // b
+  glm::vec3 Colors[3];
+  Colors[0] = glm::vec3(1.0, 0.0, 0.0);  // r
+  Colors[1] = glm::vec3(0.0, 1.0, 0.0);  // g
+  Colors[2] = glm::vec3(0.0, 0.0, 1.0);  // b
   
   // Creació del Vertex Array Object (VAO) que usarem per pintar
   glGenVertexArrays(1, &VAO);
   glBindVertexArray(VAO);
 
   // Creació del buffer amb les dades dels vèrtexs
-  glGenBuffers(1, &VBO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBO);
+  glGenBuffers(1, &VBO_vertexs);
+  glBindBuffer(GL_ARRAY_BUFFER, VBO_vertexs);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
 
   // Activem l'atribut que farem servir per vèrtex	
   glVertexAttribPointer(vertexLoc, 3, GL_FLOAT, GL_FALSE, 0, 0);
   glEnableVertexAttribArray(vertexLoc);
-
+  
+  // Creació del buffer amb les dades dels colors
   glGenBuffers(1, &VBO_colors);
   glBindBuffer(GL_ARRAY_BUFFER, VBO_colors);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Colors), Colors, GL_STATIC_DRAW);
-
+    
+  // Activem l'atribut que farem servir pels colors
   glVertexAttribPointer(colorLoc, 3, GL_FLOAT, GL_FALSE, 0, 0);
   glEnableVertexAttribArray(colorLoc);
 

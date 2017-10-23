@@ -5,7 +5,7 @@ in vec3 fcolors;
 
 void main() {
     FragColor = vec4 (fcolors, 1.);
-    if ( gl_FragCoord .x < 347.) {
+    if (gl_FragCoord .x < 347.) {
         if (gl_FragCoord .y > 347.)
             FragColor = vec4 (1. ,0. ,0. ,1.);   // vermell
         else FragColor = vec4 (1. ,1. ,0. ,1.);  // groc
