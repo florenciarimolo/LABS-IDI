@@ -17,13 +17,13 @@ void MyGLWidget::initializeGL ()
 {
   // Cal inicialitzar l'ús de les funcions d'OpenGL
   initializeOpenGLFunctions();
-  //escala = 0.5;
-    tx = ty = tz = 1.0;
+  escala = 0.5;
+  tx = ty = tz = 0.0;
   glClearColor (0.5, 0.7, 1.0, 1.0); // defineix color de fons (d'esborrat)
   carregaShaders();
   createBuffers();
-  //glUniform1f(escalaLoc, escala);  // carregar valor inicial escala
-    modelTransform();
+  glUniform1f(escalaLoc, escala);  // carregar valor inicial escala
+  modelTransform();
 }
 
 void MyGLWidget::paintGL ()
@@ -34,7 +34,7 @@ void MyGLWidget::paintGL ()
   glBindVertexArray(VAO);
  
   // Pintem l'escena
-    modelTransform();
+  modelTransform();
   glDrawArrays(GL_TRIANGLES, 0, 3);
   
   // Desactivem el VAO
@@ -53,7 +53,7 @@ void MyGLWidget::createBuffers ()
   Vertices[1] = glm::vec3(1.0, -1.0, 0.0);
   Vertices[2] = glm::vec3(0.0, 1.0, 0.0);
 
-  glm::vec3 Colors[3];  // Tres vèrtexs amb X, Y i Z
+  glm::vec3 Colors[3];
   Colors[0] = glm::vec3(1.0, 0.0, 0.0);
   Colors[1] = glm::vec3(0.0, 1.0, 0.0);
   Colors[2] = glm::vec3(0.0, 0.0, 1.0);
@@ -63,8 +63,8 @@ void MyGLWidget::createBuffers ()
   glBindVertexArray(VAO);
 
   // Creació del buffer amb les dades dels vèrtexs
-  glGenBuffers(1, &VBO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBO);
+  glGenBuffers(1, &VBO_vert);
+  glBindBuffer(GL_ARRAY_BUFFER, VBO_vert);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
 
   // Activem l'atribut que farem servir per vèrtex	
@@ -105,7 +105,7 @@ void MyGLWidget::carregaShaders()
 
   colorLoc = glGetAttribLocation (program->programId(), "color");
 
-  //escalaLoc = glGetUniformLocation(program->programId(), "escala");
+  escalaLoc = glGetUniformLocation(program->programId(), "escala");
     
   transLoc = glGetUniformLocation (program->programId(), "TG");
 }
@@ -120,26 +120,26 @@ void MyGLWidget::keyPressEvent (QKeyEvent *e)
 {
   makeCurrent();
   switch ( e->key() )  {
-    //case Qt::Key_S :
-      // escala += 0.1;
-       //glUniform1f (escalaLoc, escala);
-       //break;
-    //case Qt::Key_D :
-      //escala -= 0.1;
-      //glUniform1f (escalaLoc, escala);
-      //break;
-   case Qt::Key_Up :
-          ty += 0.1;
-          break;
-      case Qt::Key_Down :
-          ty -= 0.1;
-          break;
-      case Qt::Key_Left :
-          tx -= 0.1;
-          break;
-      case Qt::Key_Right :
-          tx += 0.1;
-          break;
+    case Qt::Key_S :
+      escala += 0.1;
+      glUniform1f (escalaLoc, escala);
+      break;
+    case Qt::Key_D :
+      escala -= 0.1;
+      glUniform1f (escalaLoc, escala);
+      break;
+    case Qt::Key_Up :
+      ty += 0.1;
+      break;
+    case Qt::Key_Down :
+      ty -= 0.1;
+      break;
+    case Qt::Key_Left :
+      tx -= 0.1;
+      break;
+    case Qt::Key_Right :
+      tx += 0.1;
+      break;
 
     default:
       e->ignore (); // propagar al pare

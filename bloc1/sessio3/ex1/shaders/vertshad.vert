@@ -7,6 +7,7 @@ uniform mat4 TG;
 
 void main()
 {
-fcolors = color;
-gl_Position = TG * vec4( vertex, 1.0);
+    fcolors = color;
+//gl_Position = TG * vec4(escala * vertex, 1.0);
+    gl_Position = TG * vec4(escala * vertex, 1.0);
 }
