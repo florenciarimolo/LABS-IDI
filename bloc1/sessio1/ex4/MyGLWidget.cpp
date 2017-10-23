@@ -51,7 +51,7 @@ void MyGLWidget::resizeGL (int w, int h)
 
 void MyGLWidget::createBuffers ()
 {
-  glm::vec3 Vertices[9];  // Tres vèrtexs amb X, Y i Z
+  glm::vec3 Vertices[9];  // Nou vèrtexs amb X, Y i Z
   Vertices[0] = glm::vec3(0.0, -1.0, 0.0);  // inf dret
   Vertices[1] = glm::vec3(-0.5, -1.0, 0.0); // inf esq
   Vertices[2] = glm::vec3(-0.5, -0.5, 0.0); // sup esq
@@ -65,9 +65,9 @@ void MyGLWidget::createBuffers ()
   Vertices[8] = glm::vec3(0.0, -0.5, 0.0);  // sup dret
 
   glm::vec3 Vertices2[3];  // Tres vèrtexs amb X, Y i Z
-  Vertices2[0] = glm::vec3(1.0, 0.75, 0.0);  // inf dret
-  Vertices2[1] = glm::vec3(0.75, -0.25, 0.0); // inf esq
-  Vertices2[2] = glm::vec3(0.0, 0.0, 0.0); // sup esq
+  Vertices2[0] = glm::vec3(1.0, 0.75, 0.0);  //  sup
+  Vertices2[1] = glm::vec3(0.75, -0.25, 0.0); // inf dret
+  Vertices2[2] = glm::vec3(0.0, 0.0, 0.0); // inf esq
     
     
   // Creació del Vertex Array Object (VAO) que usarem per pintar
