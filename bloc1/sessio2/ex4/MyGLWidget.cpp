@@ -49,7 +49,7 @@ void MyGLWidget::createBuffers ()
   Vertices[1] = glm::vec3(1.0, -1.0, 0.0);
   Vertices[2] = glm::vec3(0.0, 1.0, 0.0);
 
-  glm::vec3 Colors[3];  // Tres vèrtexs amb X, Y i Z
+  glm::vec3 Colors[3];
   Colors[0] = glm::vec3(1. ,0. ,0.);    //vermell
   Colors[1] = glm::vec3(0. ,1. ,0.);   // verd
   Colors[2] = glm::vec3(0. ,0. ,1. );  //blau
@@ -59,8 +59,8 @@ void MyGLWidget::createBuffers ()
   glBindVertexArray(VAO);
 
   // Creació del buffer amb les dades dels vèrtexs
-  glGenBuffers(1, &VBO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBO);
+  glGenBuffers(1, &VBO_vert);
+  glBindBuffer(GL_ARRAY_BUFFER, VBO_vert);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
 
   // Activem l'atribut que farem servir per vèrtex	
@@ -84,8 +84,8 @@ void MyGLWidget::carregaShaders()
   QOpenGLShader fs (QOpenGLShader::Fragment, this);
   QOpenGLShader vs (QOpenGLShader::Vertex, this);
   // Carreguem el codi dels fitxers i els compilem
-    fs.compileSourceFile(":/shaders/fragshad.frag");
-    vs.compileSourceFile(":/shaders/vertshad.vert");
+    fs.compileSourceFile("/Users/florenciarimolo/Dropbox/uni/idi/lab/bloc1/sessio2/ex4/shaders/fragshad.frag");
+    vs.compileSourceFile("/Users/florenciarimolo/Dropbox/uni/idi/lab/bloc1/sessio2/ex4/shaders/vertshad.vert");
   // Creem el program
   program = new QOpenGLShaderProgram(this);
   // Li afegim els shaders corresponents
