@@ -30,29 +30,31 @@ class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
   private:
     void createBuffers ();
     void carregaShaders ();
-    void carregaModel();
-    void modelTransform ();
+    void carregaModel ();
+    void modelTransformHomer ();
+    void modelTransformTerra();
     void projectTransform ();
-    void viewTransform();
-    void ini_camera();
+    void viewTransform ();
+    void iniCamera ();
+    void carregaHomer ();
+    void carregaTerra ();
     
     Model homer;
     
     GLuint viewLoc;
     GLuint projectaLoc;
     // attribute locations
-    GLuint vertexLoc, colorLoc,vertexTerraLoc;
+    GLuint vertexLoc, colorLoc;
     // uniform locations
     GLuint transLoc;
     // VAO i VBO names
-    //GLuint VAO_Casa, VBO_CasaPos, VBO_CasaCol;
-    GLuint VAO_Terra, VBO_TerraVert;
+    GLuint VAO_Terra, VBO_TerraVert, VBO_TerraColor;
     GLuint VAO_Homer, VBO_HomerVert, VBO_HomerMat;
     // Program
     QOpenGLShaderProgram *program;
     // Internal vars
     float scale, rotate;
     glm::vec3 pos, obs, vrp, up;
-    float fovi,fov, ra, znear, zfar;
+    float fovi, fov, ra, znear, zfar;
 };
 

@@ -1,11 +1,12 @@
 TEMPLATE    = app
-QT         += opengl 
+QT         += opengl
 
-INCLUDEPATH +=  /usr/include/glm /dades/florencia.rimolo/idi/lab/Model
+INCLUDEPATH +=  /usr/local/Cellar/glm/0.9.8.5/include /Users/florenciarimolo/Dropbox/uni/idi/lab/Model
 
 FORMS += MyForm.ui
 
 HEADERS += MyForm.h MyGLWidget.h
 
 SOURCES += main.cpp MyForm.cpp \
-        MyGLWidget.cpp /dades/florencia.rimolo/idi/lab/Model/model.cpp
+MyGLWidget.cpp /Users/florenciarimolo/Dropbox/uni/idi/lab/Model/model.cpp
+
