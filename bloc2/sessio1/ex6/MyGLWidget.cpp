@@ -36,7 +36,7 @@ void MyGLWidget::paintGL ()
   projectTransform();
   viewTransform();
 
-  // Activem el VAO per a pintar la caseta 
+  // Activem el VAO per a pintar el Homer
   glBindVertexArray (VAO_Homer);
 
   // pintem
@@ -44,7 +44,7 @@ void MyGLWidget::paintGL ()
 
   glBindVertexArray (0);
   modelTransformTerra();
-    // Activem el VAO per a pintar la caseta 
+    // Activem el VAO per a pintar el terra
   glBindVertexArray (VAO_Terra);
 
   // pintem
@@ -162,15 +162,14 @@ void MyGLWidget::carregaModel(){
     
     // TERRA
   glm::vec3 Vertices[6];  // 6 vèrtexs amb X, Y i Z
-  Vertices[0] = glm::vec3(-1.0, -1.0, 1.0);  // inf dret
-  Vertices[1] = glm::vec3(1.0, -1.0, 1.0); // inf esq
-  Vertices[2] = glm::vec3(1.0, -1.0, -1.0); // sup esq
-  
-  Vertices[3] = glm::vec3(-1.0, -1.0, 1.0);  // inf dret
-  Vertices[4] = glm::vec3(-1.0, -1.0, -1.0); // inf esq
-  Vertices[5] = glm::vec3(1.0, -1.0, -1.0); // sup esq
+  Vertices[0] = glm::vec3(-1.0, -1.0, 1.0);
+  Vertices[1] = glm::vec3(1.0, -1.0, 1.0);
+  Vertices[2] = glm::vec3(1.0, -1.0, -1.0);
+  Vertices[3] = glm::vec3(-1.0, -1.0, 1.0);
+  Vertices[4] = glm::vec3(-1.0, -1.0, -1.0);
+  Vertices[5] = glm::vec3(1.0, -1.0, -1.0);
     
-  glm::vec3 Colors[6];
+  glm::vec3 Colors[6];   // color del terra
   Colors[0] = glm::vec3(1.0, 1.0, 0.0);
     Colors[1] = glm::vec3(1.0, 1.0, 0.0);
     Colors[2] = glm::vec3(1.0, 1.0, 0.0);
