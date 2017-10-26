@@ -107,26 +107,6 @@ void MyGLWidget::projectTransform ()
     glUniformMatrix4fv(projectaLoc, 1, GL_FALSE, &projecta[0][0]);
 }
 
-
-
-void MyGLWidget::keyPressEvent(QKeyEvent* event) 
-{
-  makeCurrent();
-  switch (event->key()) {
-    case Qt::Key_S: { // escalar a més gran
-      scale += 0.05;
-      break;
-    }
-    case Qt::Key_D: { // escalar a més petit
-      scale -= 0.05;
-      break;
-    }
-          
-    default: event->ignore(); break;
-  }
-  update();
-}
-
 void MyGLWidget::createBuffers () 
 {
   carregaModel();

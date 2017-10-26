@@ -24,8 +24,6 @@ class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
     virtual void paintGL ( );
     // resizeGL - És cridat quan canvia la mida del widget
     virtual void resizeGL (int width, int height);
-    // keyPressEvent - Es cridat quan es prem una tecla
-    virtual void keyPressEvent (QKeyEvent *event);
 
   private:
     void createBuffers ();
