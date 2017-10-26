@@ -125,8 +125,8 @@ void MyGLWidget::carregaShaders()
   QOpenGLShader fs (QOpenGLShader::Fragment, this);
   QOpenGLShader vs (QOpenGLShader::Vertex, this);
   // Carreguem el codi dels fitxers i els compilem
-  fs.compileSourceFile("/Users/florenciarimolo/Dropbox/uni/idi/lab/bloc2/sessio2/ex4/shaders/fragshad.frag");
-  vs.compileSourceFile("/Users/florenciarimolo/Dropbox/uni/idi/lab/bloc2/sessio2/ex4/shaders/vertshad.vert");
+  fs.compileSourceFile("/Users/florenciarimolo/Dropbox/uni/idi/lab/bloc2/sessio2/ex5/shaders/fragshad.frag");
+  vs.compileSourceFile("/Users/florenciarimolo/Dropbox/uni/idi/lab/bloc2/sessio2/ex5/shaders/vertshad.vert");
   // Creem el program
   program = new QOpenGLShaderProgram(this);
   // Li afegim els shaders corresponents
