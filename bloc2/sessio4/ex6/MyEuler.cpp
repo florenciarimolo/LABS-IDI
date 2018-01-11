@@ -440,7 +440,7 @@ void MyEuler::pintaPatricio() {
 
 void MyEuler::actualitzaR(int value) {
     makeCurrent();
-    r = value;
+    r = value / 255.0;
     createBuffers(model_actual);
     inicialitzaCamera();
     update ();
@@ -448,7 +448,7 @@ void MyEuler::actualitzaR(int value) {
 
 void MyEuler::actualitzaG(int value) {
     makeCurrent();
-    g = value;
+    g = value / 255.0;
     createBuffers(model_actual);
     inicialitzaCamera();
     update ();
@@ -456,7 +456,7 @@ void MyEuler::actualitzaG(int value) {
 
 void MyEuler::actualitzaB(int value) {
     makeCurrent();
-    b = value;
+    b = value / 255.0;
     createBuffers(model_actual);
     inicialitzaCamera();
     update ();

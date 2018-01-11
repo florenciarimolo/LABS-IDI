@@ -96,7 +96,7 @@ class MyEuler : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
     int width, height;
     
     // r,g,b terra
-    int r,g,b;
+    float r,g,b;
     
     std::string model_actual;
 
