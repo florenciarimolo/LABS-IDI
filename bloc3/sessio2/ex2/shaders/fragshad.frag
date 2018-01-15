@@ -3,17 +3,22 @@
 
 in vec3 colorFocus;
 in vec4 vertexSCO;
-in vec3 NormSCO;
-in vec4 focusSCO;
+in mat3 nMatrix;
+in vec3 normalSCO;
 out vec4 FragColor;
+
+uniform vec3 posFocus;
+uniform vec3 colFocus;
+ 
+// Propietats del material
 
 in vec3 matambfrag;
 in vec3 matdifffrag;
 in vec3 matspecfrag;
 in float matshinfrag;
+in vec4 focusSCO;
 
-
-vec3 llumAmbient = vec3(0.2, 0.2, 0.2);
+uniform vec3 llumAmbient;
 
 vec3 Lambert (vec3 NormSCO, vec3 L)
 {
@@ -24,7 +29,7 @@ vec3 Lambert (vec3 NormSCO, vec3 L)
     
     // Afegim component difusa, si n'hi ha
     if (dot (L, NormSCO) > 0)
-        colRes = colRes + colorFocus * matdifffrag * dot (L, NormSCO);
+        colRes = colRes + colFocus * matdifffrag * dot (L, NormSCO);
     return (colRes);
 }
 
@@ -47,14 +52,15 @@ vec3 Phong (vec3 NormSCO, vec3 L, vec4 vertSCO)
     
     // Afegim la component especular
     float shine = pow(max(0.0, dot(R, V)), matshinfrag);
-    return (colRes + matspecfrag * colorFocus * shine);
+    return (colRes + matspecfrag * colFocus * shine);
 }
 
 
 void main()
 {
+    
     vec4 L         = focusSCO - vertexSCO;
     vec3 Lxyz      = normalize(L.xyz);
-    vec3 fcolor         = Phong (NormSCO, Lxyz, vertexSCO);
+    vec3 fcolor         = Phong (normalSCO, Lxyz, vertexSCO);
 	FragColor = vec4(fcolor,1);	
 }

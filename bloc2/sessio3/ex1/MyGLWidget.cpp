@@ -97,7 +97,7 @@ void MyGLWidget::projectTransform ()
 
 void MyGLWidget::createBuffers () 
 {
-    model.load("/dades/florencia.rimolo/idi/lab/models/Patricio.obj");
+    model.load("/Users/florenciarimolo/Dropbox/uni/idi/lab/models/Patricio.obj");
     
     // Creació VAO
     glGenVertexArrays(1, &VAO_Model);
@@ -130,8 +130,8 @@ void MyGLWidget::carregaShaders()
   QOpenGLShader fs (QOpenGLShader::Fragment, this);
   QOpenGLShader vs (QOpenGLShader::Vertex, this);
   // Carreguem el codi dels fitxers i els compilem
-  fs.compileSourceFile("shaders/fragshad.frag");
-  vs.compileSourceFile("shaders/vertshad.vert");
+  fs.compileSourceFile("/Users/florenciarimolo/Dropbox/uni/idi/lab/bloc2/sessio3/ex1/shaders/fragshad.frag");
+  vs.compileSourceFile("/Users/florenciarimolo/Dropbox/uni/idi/lab/bloc2/sessio3/ex1/shaders/vertshad.vert");
   // Creem el program
   program = new QOpenGLShaderProgram(this);
   // Li afegim els shaders corresponents

@@ -31,8 +31,10 @@ void MyGLWidget::initializeGL ()
   viewTransform ();
   glm::vec3 colorFocus = glm::vec3(0.8, 0.8, 0.8);
   posicioFocus = glm::vec3(1, 1, 1);
+  glm::vec3 llumAmbient = glm::vec3(0.2, 0.2, 0.2);
   glUniform3fv(colFocusLoc, 1, &colorFocus[0]);
   glUniform3fv(posFocusLoc, 1, &posicioFocus[0]);
+  glUniform3fv(llumAmbLoc, 1, &llumAmbient[0]);
 }
 
 void MyGLWidget::paintGL () 
@@ -265,6 +267,7 @@ void MyGLWidget::carregaShaders()
   viewLoc = glGetUniformLocation (program->programId(), "view");
   colFocusLoc = glGetUniformLocation (program->programId(), "colFocus");
   posFocusLoc = glGetUniformLocation (program->programId(), "posFocus");
+  llumAmbLoc = glGetUniformLocation (program->programId(), "llumAmbient");
     
 }
 

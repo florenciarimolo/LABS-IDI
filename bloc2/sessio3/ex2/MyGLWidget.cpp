@@ -299,6 +299,14 @@ void MyGLWidget::radiEsferaContenidora()
     centreBase[1] = centre[1] - (ymax - ymin) / 2.0;   // = ymin
     centreBase[2] = centre[2];
     
+    // Escalat dels max/min del model
+    xmax = xmax * scale;
+    ymax = ymax * scale;
+    zmax = zmax * scale;
+    xmin = xmin * scale;
+    ymin = ymin * scale;
+    zmin = zmin * scale;
+    
     if (xmax < 2.0) xmax = 2.0;
     if (xmin > -2.0) xmin = -2.0;
     if (zmax < 2.0) zmax = 2.0;

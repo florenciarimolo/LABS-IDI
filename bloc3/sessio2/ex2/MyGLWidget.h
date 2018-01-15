@@ -49,7 +49,7 @@ class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
     // Program
     QOpenGLShaderProgram *program;
     // uniform locations
-    GLuint transLoc, projLoc, viewLoc, posFocusLoc, colFocusLoc;
+    GLuint transLoc, projLoc, viewLoc, posFocusLoc, colFocusLoc, llumAmbLoc;
     // attribute locations
     GLuint vertexLoc, normalLoc, matambLoc, matdiffLoc, matspecLoc, matshinLoc;
 

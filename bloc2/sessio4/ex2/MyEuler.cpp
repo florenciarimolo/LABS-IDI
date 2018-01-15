@@ -413,7 +413,7 @@ void MyEuler::thetaAngle (int angle)
 void MyEuler::fovAngle (int angle)
 {
     makeCurrent();
-    fov = (float) angle / 360.0 * (float)M_PI;
+    fov = (float) angle / 180.0 * (float)M_PI;
     update ();
 }
 

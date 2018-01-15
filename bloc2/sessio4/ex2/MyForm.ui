@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>13</x>
@@ -108,10 +108,13 @@
       <item>
        <widget class="QSlider" name="horizontalSlider_3">
         <property name="minimum">
-         <number>-360</number>
+         <number>0</number>
         </property>
         <property name="maximum">
-         <number>360</number>
+         <number>180</number>
+        </property>
+        <property name="value">
+         <number>90</number>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -121,10 +124,13 @@
       <item>
        <widget class="QSpinBox" name="spinBox">
         <property name="minimum">
-         <number>-360</number>
+         <number>0</number>
         </property>
         <property name="maximum">
-         <number>360</number>
+         <number>180</number>
+        </property>
+        <property name="value">
+         <number>90</number>
         </property>
        </widget>
       </item>

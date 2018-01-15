@@ -10,3 +10,4 @@ HEADERS += MyForm.h MyGLWidget.h
 SOURCES += main.cpp MyForm.cpp \
 MyGLWidget.cpp /Users/florenciarimolo/Dropbox/uni/idi/lab/Model/model.cpp
 
+
