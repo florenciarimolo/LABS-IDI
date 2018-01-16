@@ -10,6 +10,7 @@ MyGLWidget::MyGLWidget (QWidget* parent) : QOpenGLWidget(parent)
   perspectiva = true;
   DoingInteractive = NONE;
   radiEsc = sqrt(5);
+  rotate = 0;
     //escala = 1.0f;
 }
 
@@ -59,8 +60,8 @@ void MyGLWidget::paintGL ()
     
     // Activem el VAO per a pintar la vaca
     glBindVertexArray (VAO_Vaca);
-        modelTransformVaca ();
-
+    
+    modelTransformVaca ();
 
   // Pintem l'escena
   glDrawArrays(GL_TRIANGLES, 0, vaca.faces().size()*3);
@@ -363,6 +364,7 @@ void MyGLWidget::modelTransformPatricioA ()
 {
   glm::mat4 TG(1.f);  // Matriu de transformació
   TG = glm::translate(TG, glm::vec3(1,-0.5,0));
+  TG = glm::rotate(TG, rotate, glm::vec3(0, 1, 0));
   TG = glm::scale(TG, glm::vec3(escalaP, escalaP, escalaP));
   TG = glm::translate(TG, -centrePatr);
   
@@ -374,6 +376,7 @@ void MyGLWidget::modelTransformVaca ()
   glm::mat4 TG(1.f);  // Matriu de transformació
   TG = glm::translate(TG, glm::vec3(1,-1,0));
   TG = glm::scale(TG, glm::vec3(escalaV, escalaV, escalaV));
+  TG = glm::rotate(TG, rotate, glm::vec3(0, 1, 0));
   TG = glm::rotate(TG, -(float)M_PI/2, glm::vec3(1, 0, 0));
   TG = glm::rotate(TG, -(float)M_PI/2, glm::vec3(0, 0, 1));
   TG = glm::translate(TG, -centreVaca);
@@ -412,9 +415,14 @@ void MyGLWidget::projectTransform ()
 void MyGLWidget::viewTransform ()
 {
     // Matriu de projecció del model
-    // glm::mat4 view = glm::lookAt(obs, vrp, vup);
+       //float dist = zfar - znear;
+
+   //zNear = sqrt(pow(OBS[1] - VRP[1], 2) + pow(OBS[0] - VRP[0],2)) -1 ;
+   //znear = 0.1;
+
+//zfar = znear + dist;
+    glm::mat4 view = glm::lookAt(obs, vrp, up);
     // Visió amb angles d'Euler
-    glm::mat4 view(1.0f);
     view = glm::translate(view, -obs);     // posa la camera a l'origen
     view = glm::rotate(view, -psi,  eixY); // gira
     view = glm::rotate(view, theta, eixX);
@@ -422,6 +430,8 @@ void MyGLWidget::viewTransform ()
     view = glm::translate(view, -vrp);      // trasllada el vrp a l'origen
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
 }
+
+
 
 void MyGLWidget::calculaCapsaPatricio ()
 {
@@ -513,18 +523,27 @@ void MyGLWidget::iniCamera()
     psi    = 0.0;
     phi    = 0.0;
     
-    obs = glm::vec3(0.0, 0.0, 2.0 * radiEsc);
-    vrp = glm::vec3(0.0, 0.0, 0.0);
+    obs = glm::vec3(-1,1,-1);
+    //obs = glm::vec3(-1, 1, -1);  
+    vrp = glm::vec3(1, -0.325, 0);   // volem mirar el centre del patricio que esta damunt de la vaca, la base del patricio esta al (1,-0.5,0), i fa d'alçada 0.25,
+                                     // per tant per saber el centre hem de sumar -0.5 + 0.25/2 = -0.325
     up = glm::vec3(0.0, 1.0, 0.0);
     
-    float d = 0;
+    float d = 2*radiEsc;
+    /*float d = 0;
     for (int i = 0; i < 3; i += 1){
         d = d + (obs[i] - vrp[i]) * (obs[i] - vrp[i]);
     }
-    d     = sqrt(d);
-    znear = (d - radiEsc) / 2.0;
-    zfar  = d + radiEsc;
-    fovi  = 2.0 * asin(radiEsc / d); // (float)M_PI / 2.0f;
+    d     = sqrt(d);*/
+    znear = radiEsc;
+    zfar  = d+radiEsc;
+    d = zfar - znear;
+    znear = 0.1;
+    zfar = d + znear;
+    /*znear = (d - radiEsc) / 2.0;
+    zfar  = d + radiEsc;*/
+    //fovi  = 2.0 * asin(radiEsc / d); // (float)M_PI / 2.0f;
+    fovi = (float)M_PI / 3.0;
     fov   = fovi;
     zoomAnt = fov;
     lefti = left = bottom = bottomi = -radiEsc;
@@ -545,6 +564,10 @@ void MyGLWidget::keyPressEvent(QKeyEvent* event)
       projectTransform ();
       break;
     }
+    case Qt::Key_R: { // rotem 30 graus
+      rotate += M_PI/6;
+    break;
+   }
     default: event->ignore(); break;
   }
   update();

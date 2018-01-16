@@ -12,10 +12,13 @@ uniform mat4 proj;
 uniform mat4 view;
 uniform mat4 TG;
 
+uniform int pintaVaca;
+
 // Valors per als components que necessitem dels focus de llum
 vec3 colFocus = vec3(0.8, 0.8, 0.8);
 vec3 llumAmbient = vec3(0.2, 0.2, 0.2);
 vec3 posFocus = vec3(0, 0, 0); 
+vec3 matdiffaux = matdiff;
 
 out vec3 fcolor;
 
@@ -28,7 +31,7 @@ vec3 Lambert (vec3 NormSCO, vec3 L)
 
     // Afegim component difusa, si n'hi ha
     if (dot (L, NormSCO) > 0)
-      colRes = colRes + colFocus * matdiff * dot (L, NormSCO);
+      colRes = colRes + colFocus * matdiffaux * dot (L, NormSCO);
     return (colRes);
 }
 
@@ -56,6 +59,8 @@ vec3 Phong (vec3 NormSCO, vec3 L, vec4 vertSCO)
 
 void main()
 {	
+
+    if (pintaVaca == 1) matdiffaux = vec3(211.0/255.0,211.0/255.0,211.0/255.0);
     mat3 nMatrix   = inverse(transpose(mat3(view * TG)));
     vec3 NormSCO   = normalize(nMatrix * normal);
     vec4 vertexSCO = view * TG * vec4(vertex, 1.0);

@@ -10,6 +10,8 @@ MyGLWidget::MyGLWidget (QWidget* parent) : QOpenGLWidget(parent)
   perspectiva = true;
   DoingInteractive = NONE;
   radiEsc = sqrt(5);
+  deltaTrans = 0.1f;
+  trans = glm::vec3(0,0,0);
     //escala = 1.0f;
 }
 
@@ -46,24 +48,21 @@ void MyGLWidget::paintGL ()
   // pintem
   glDrawArrays(GL_TRIANGLES, 0, 12);
 
-
   // Activem el VAO per a pintar el Patricio
   glBindVertexArray (VAO_Patr);
-    modelTransformPatricioA ();
 
+  modelTransformPatricioA ();
     
   // Pintem l'escena
   glDrawArrays(GL_TRIANGLES, 0, patr.faces().size()*3);
-  
-
     
-    // Activem el VAO per a pintar la vaca
-    glBindVertexArray (VAO_Vaca);
-        modelTransformVaca ();
-
+    // Activem el VAO per a pintar el Patricio
+    glBindVertexArray (VAO_Patr);
+    
+  modelTransformPatricioB ();
 
   // Pintem l'escena
-  glDrawArrays(GL_TRIANGLES, 0, vaca.faces().size()*3);
+  glDrawArrays(GL_TRIANGLES, 0, patr.faces().size()*3);
   
   glBindVertexArray(0);
 }
@@ -156,67 +155,6 @@ void MyGLWidget::createBuffers ()
   glGenBuffers(1, &VBO_PatrMatshin);
   glBindBuffer(GL_ARRAY_BUFFER, VBO_PatrMatshin);
   glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*patr.faces().size()*3, patr.VBO_matshin(), GL_STATIC_DRAW);
-
-  glVertexAttribPointer(matshinLoc, 1, GL_FLOAT, GL_FALSE, 0, 0);
-  glEnableVertexAttribArray(matshinLoc);
-  
-    // Carreguem el model de l'OBJ - Atenció! Abans de crear els buffers!
-  vaca.load("./models/cow.obj");
-
-  // Calculem la capsa contenidora del model
-  //calculaCapsaModel ();
-  
-  // Creació del Vertex Array Object del Patricio
-  glGenVertexArrays(1, &VAO_Vaca);
-  glBindVertexArray(VAO_Vaca);
-
-  // Creació dels buffers del model patr
-  // Buffer de posicions
-  glGenBuffers(1, &VBO_VacaPos);
-  glBindBuffer(GL_ARRAY_BUFFER, VBO_VacaPos);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*vaca.faces().size()*3*3, vaca.VBO_vertices(), GL_STATIC_DRAW);
-
-  // Activem l'atribut vertexLoc
-  glVertexAttribPointer(vertexLoc, 3, GL_FLOAT, GL_FALSE, 0, 0);
-  glEnableVertexAttribArray(vertexLoc);
-
-  // Buffer de normals
-  glGenBuffers(1, &VBO_VacaNorm);
-  glBindBuffer(GL_ARRAY_BUFFER, VBO_VacaNorm);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*vaca.faces().size()*3*3, vaca.VBO_normals(), GL_STATIC_DRAW);
-
-  glVertexAttribPointer(normalLoc, 3, GL_FLOAT, GL_FALSE, 0, 0);
-  glEnableVertexAttribArray(normalLoc);
-
-  // En lloc del color, ara passem tots els paràmetres dels materials
-  // Buffer de component ambient
-  glGenBuffers(1, &VBO_VacaMatamb);
-  glBindBuffer(GL_ARRAY_BUFFER, VBO_VacaMatamb);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*vaca.faces().size()*3*3, vaca.VBO_matamb(), GL_STATIC_DRAW);
-
-  glVertexAttribPointer(matambLoc, 3, GL_FLOAT, GL_FALSE, 0, 0);
-  glEnableVertexAttribArray(matambLoc);
-
-  // Buffer de component difusa
-  glGenBuffers(1, &VBO_VacaMatdiff);
-  glBindBuffer(GL_ARRAY_BUFFER, VBO_VacaMatdiff);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*vaca.faces().size()*3*3, vaca.VBO_matdiff(), GL_STATIC_DRAW);
-
-  glVertexAttribPointer(matdiffLoc, 3, GL_FLOAT, GL_FALSE, 0, 0);
-  glEnableVertexAttribArray(matdiffLoc);
-
-  // Buffer de component especular
-  glGenBuffers(1, &VBO_VacaMatspec);
-  glBindBuffer(GL_ARRAY_BUFFER, VBO_VacaMatspec);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*vaca.faces().size()*3*3, vaca.VBO_matspec(), GL_STATIC_DRAW);
-
-  glVertexAttribPointer(matspecLoc, 3, GL_FLOAT, GL_FALSE, 0, 0);
-  glEnableVertexAttribArray(matspecLoc);
-
-  // Buffer de component shininness
-  glGenBuffers(1, &VBO_VacaMatshin);
-  glBindBuffer(GL_ARRAY_BUFFER, VBO_VacaMatshin);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*vaca.faces().size()*3, vaca.VBO_matshin(), GL_STATIC_DRAW);
 
   glVertexAttribPointer(matshinLoc, 1, GL_FLOAT, GL_FALSE, 0, 0);
   glEnableVertexAttribArray(matshinLoc);
@@ -362,35 +300,25 @@ void MyGLWidget::carregaShaders()
 void MyGLWidget::modelTransformPatricioA ()
 {
   glm::mat4 TG(1.f);  // Matriu de transformació
-  TG = glm::translate(TG, glm::vec3(1,-0.5,0));
-  TG = glm::scale(TG, glm::vec3(escalaP, escalaP, escalaP));
+  TG = glm::translate(TG, trans);
+  TG = glm::translate(TG, glm::vec3(-2, -1, 0));
+  TG = glm::rotate(TG, (float)M_PI/2, glm::vec3(0, 1, 0));
+  TG = glm::scale(TG, glm::vec3(escalaPA, escalaPA, escalaPA));
   TG = glm::translate(TG, -centrePatr);
   
   glUniformMatrix4fv (transLoc, 1, GL_FALSE, &TG[0][0]);
 }
 
-void MyGLWidget::modelTransformVaca ()
-{
-  glm::mat4 TG(1.f);  // Matriu de transformació
-  TG = glm::translate(TG, glm::vec3(1,-1,0));
-  TG = glm::scale(TG, glm::vec3(escalaV, escalaV, escalaV));
-  TG = glm::rotate(TG, -(float)M_PI/2, glm::vec3(1, 0, 0));
-  TG = glm::rotate(TG, -(float)M_PI/2, glm::vec3(0, 0, 1));
-  TG = glm::translate(TG, -centreVaca);
-  
-  glUniformMatrix4fv (transLoc, 1, GL_FALSE, &TG[0][0]);
-}
-
-/*void MyGLWidget::modelTransformPatricioB ()
+void MyGLWidget::modelTransformPatricioB ()
 {
     glm::mat4 TG(1.f);  // Matriu de transformació
-    TG = glm::translate(TG, glm::vec3(0, 2, 0));
-    TG = glm::scale(TG, glm::vec3(escala, escala, escala));
-    TG = glm::rotate(TG, (float)M_PI, glm::vec3(0, 0, 1));
+    TG = glm::translate(TG, glm::vec3(2, -1, 1));
+    TG = glm::scale(TG, glm::vec3(escalaPB, escalaPB, escalaPB));
+    TG = glm::rotate(TG, -(float)M_PI / 2, glm::vec3(0, 1, 0));
     TG = glm::translate(TG, -centrePatr);
     
     glUniformMatrix4fv (transLoc, 1, GL_FALSE, &TG[0][0]);
-}*/
+}
 
 void MyGLWidget::modelTransformTerra ()
 {
@@ -423,7 +351,7 @@ void MyGLWidget::viewTransform ()
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
 }
 
-void MyGLWidget::calculaCapsaPatricio ()
+void MyGLWidget::calculaCapsaModel ()
 {
   // Càlcul capsa contenidora i valors transformacions inicials
   float minx, miny, minz, maxx, maxy, maxz;
@@ -445,46 +373,28 @@ void MyGLWidget::calculaCapsaPatricio ()
     if (patr.vertices()[i+2] > maxz)
       maxz = patr.vertices()[i+2];
   }
-  escalaP = 0.25/(maxy-miny);
-  centrePatr[0] = (minx+maxx)/2.0; centrePatr[1] = (miny+maxy)/2.0; centrePatr[2] = (minz+maxz)/2.0;
-}
-
-void MyGLWidget::calculaCapsaVaca ()
-{
-  // Càlcul capsa contenidora i valors transformacions inicials
-  float minx, miny, minz, maxx, maxy, maxz;
-  minx = maxx = vaca.vertices()[0];
-  miny = maxy = vaca.vertices()[1];
-  minz = maxz = vaca.vertices()[2];
-  for (unsigned int i = 3; i < vaca.vertices().size(); i+=3)
-  {
-    if (vaca.vertices()[i+0] < minx)
-      minx = vaca.vertices()[i+0];
-    if (vaca.vertices()[i+0] > maxx)
-      maxx = vaca.vertices()[i+0];
-    if (vaca.vertices()[i+1] < miny)
-      miny = vaca.vertices()[i+1];
-    if (vaca.vertices()[i+1] > maxy)
-      maxy = vaca.vertices()[i+1];
-    if (vaca.vertices()[i+2] < minz)
-      minz = vaca.vertices()[i+2];
-    if (vaca.vertices()[i+2] > maxz)
-      maxz = vaca.vertices()[i+2];
-  }
-  escalaV = 0.5/(maxz-minz);
-  centreVaca[0] = (minx+maxx)/2.0; centreVaca[1] = (miny+maxy)/2.0; centreVaca[2] = minz;
-}
-
-void MyGLWidget::radiEsferaContenidora ()
-{
-  // Càlcul capsa contenidora i valors transformacions inicials
-  float minx, miny, minz, maxx, maxy, maxz;
+  escalaPA = 1.0/(maxy-miny);
+    escalaPB = 2.5/(maxy-miny);
+  centrePatr[0] = (minx+maxx)/2.0; centrePatr[1] = miny; centrePatr[2] = (minz+maxz)/2.0;
     
     // Escalat dels max/min del model
+    /*maxx = maxx * escalaPB;
+    maxy = maxy * escalaPB;
+    maxz = maxz * escalaPB;
+    minx = minx * escalaPB;
+    miny = miny * escalaPB;
+    minz = minz * escalaPB;
+    
+    // Inclusió del terra en el min/max
+    if (maxx <  2.0) maxx =  2;
+    if (minx > -2.0) minx = -2;
+    if (maxz <  2.0) maxz =  2;
+    if (minz > -2.0) minz = -2;*/
+    
     maxx = 2;
     minx = -2;
+    maxy = 2.5;
     miny = -1;
-    maxy = 1;
     maxz = 2;
     minz = -2;
     
@@ -496,12 +406,10 @@ void MyGLWidget::radiEsferaContenidora ()
     radiEsc      = sqrt(dx * dx + dy * dy + dz * dz)/2.0;
 }
 
+
 void MyGLWidget::iniCamera()
 {
-    calculaCapsaPatricio();
-    calculaCapsaVaca();
-    radiEsferaContenidora();
-    deltaFov = (float)M_PI / 50.0;
+    calculaCapsaModel();
     xClick     = 0;
     yClick     = 0;
     deltaA     = M_PI / 180.0;
@@ -526,7 +434,6 @@ void MyGLWidget::iniCamera()
     zfar  = d + radiEsc;
     fovi  = 2.0 * asin(radiEsc / d); // (float)M_PI / 2.0f;
     fov   = fovi;
-    zoomAnt = fov;
     lefti = left = bottom = bottomi = -radiEsc;
     right = righti = top = topi = radiEsc;
     ra    = 1.0;
@@ -542,7 +449,16 @@ void MyGLWidget::keyPressEvent(QKeyEvent* event)
   switch (event->key()) {
     case Qt::Key_O: { // canvia òptica entre perspectiva i axonomètrica
       perspectiva = !perspectiva;
-      projectTransform ();
+      break;
+    }
+        case Qt::Key_A: { // canvia òptica entre perspectiva i axonomètrica
+        if (trans.x <= 3.9) trans.x += deltaTrans;
+        
+      break;
+    }
+        case Qt::Key_D: { // canvia òptica entre perspectiva i axonomètrica
+            if (trans.x >= 0.1)
+            trans.x -= deltaTrans;
       break;
     }
     default: event->ignore(); break;
@@ -560,11 +476,6 @@ void MyGLWidget::mousePressEvent (QMouseEvent *e)
   {
     DoingInteractive = ROTATE;
   }
-  else if (e->button() & Qt::RightButton &&
-      ! (e->modifiers() & (Qt::ShiftModifier|Qt::AltModifier|Qt::ControlModifier)))
-  {
-    DoingInteractive = ZOOM;
-  }
 }
 
 void MyGLWidget::mouseReleaseEvent( QMouseEvent *)
@@ -577,38 +488,24 @@ void MyGLWidget::mouseMoveEvent(QMouseEvent *e)
     makeCurrent();
     int dx = abs(e->x() - xClick);
     int dy = abs(e->y() - yClick);
-    if (DoingInteractive == ROTATE) {
-      if (dx > dy){   // gir "psi" respecte eixY
-          if (e->x() > xClick){
-              psi  += abs(e->x() - xClick) * deltaA;
-          }else if (e->x() < xClick){
-              psi  -= abs(e->x() - xClick) * deltaA;
-          }
-      }else{  // gir "theta" respecte eixX
-          if (e->y() > yClick){
-              theta -= abs(e->y() - yClick) * deltaA;
-          }else if (e->y() < yClick){
-              theta += abs(e->y() - yClick) * deltaA;
-          }
-      }
-    }
-    if (DoingInteractive == ZOOM) {
-      float FOVauxiliar = fov + (e->y() - yClick)/10.0;
-      if(FOVauxiliar < (float) M_PI && FOVauxiliar > 0.0) fov= FOVauxiliar;
-
-      float auxFov =  fov /  (float) M_PI * 180.0;
-      emit zoomChanged((int) auxFov);
+    
+    if (dx > dy){   // gir "psi" respecte eixY
+        if (e->x() > xClick){
+            psi  += abs(e->x() - xClick) * deltaA;
+        }else if (e->x() < xClick){
+            psi  -= abs(e->x() - xClick) * deltaA;
+        }
+    }else{  // gir "theta" respecte eixX
+        if (e->y() > yClick){
+            theta -= abs(e->y() - yClick) * deltaA;
+        }else if (e->y() < yClick){
+            theta += abs(e->y() - yClick) * deltaA;
+        }
     }
     update ();
     
     xClick = e->x();
     yClick = e->y();
-}
-
-void MyGLWidget::setZoom(int zoom) {
-  makeCurrent();
-  if (zoom < 180 and zoom > 0) fov = zoom * (float) M_PI / 180.0;
-  update();
 }
 
 

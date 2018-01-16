@@ -10,6 +10,9 @@ MyGLWidget::MyGLWidget (QWidget* parent) : QOpenGLWidget(parent)
   perspectiva = true;
   DoingInteractive = NONE;
   radiEsc = sqrt(5);
+  rotate = 0;
+  canviFranges = 0;
+
     //escala = 1.0f;
 }
 
@@ -28,6 +31,8 @@ void MyGLWidget::initializeGL ()
   glEnable (GL_DEPTH_TEST);
   carregaShaders ();
   createBuffers ();
+    focusEscena= 1;
+    glUniform1i(focusEscenaLoc, focusEscena);
     iniCamera();
 }
 
@@ -42,6 +47,7 @@ void MyGLWidget::paintGL ()
   glBindVertexArray (VAO_Terra);
 
   modelTransformTerra ();
+  glUniform1i(pintaVacaLoc, 0);
 
   // pintem
   glDrawArrays(GL_TRIANGLES, 0, 12);
@@ -50,6 +56,7 @@ void MyGLWidget::paintGL ()
   // Activem el VAO per a pintar el Patricio
   glBindVertexArray (VAO_Patr);
     modelTransformPatricioA ();
+    glUniform1i(pintaVacaLoc, 0);
 
     
   // Pintem l'escena
@@ -59,8 +66,9 @@ void MyGLWidget::paintGL ()
     
     // Activem el VAO per a pintar la vaca
     glBindVertexArray (VAO_Vaca);
-        modelTransformVaca ();
-
+    
+    modelTransformVaca ();
+    glUniform1i(pintaVacaLoc, 1);
 
   // Pintem l'escena
   glDrawArrays(GL_TRIANGLES, 0, vaca.faces().size()*3);
@@ -352,8 +360,13 @@ void MyGLWidget::carregaShaders()
   matspecLoc = glGetAttribLocation (program->programId(), "matspec");
   // Obtenim identificador per a l'atribut “matshin” del vertex shader
   matshinLoc = glGetAttribLocation (program->programId(), "matshin");
+  
+
 
   // Demanem identificadors per als uniforms del vertex shader
+  pintaVacaLoc = glGetUniformLocation (program->programId(), "pintaVaca");
+  canviFrangesLoc = glGetUniformLocation (program->programId(), "canviFranges");
+  focusEscenaLoc = glGetUniformLocation (program->programId(), "focusEscena");
   transLoc = glGetUniformLocation (program->programId(), "TG");
   projLoc = glGetUniformLocation (program->programId(), "proj");
   viewLoc = glGetUniformLocation (program->programId(), "view");
@@ -363,6 +376,7 @@ void MyGLWidget::modelTransformPatricioA ()
 {
   glm::mat4 TG(1.f);  // Matriu de transformació
   TG = glm::translate(TG, glm::vec3(1,-0.5,0));
+  TG = glm::rotate(TG, rotate, glm::vec3(0, 1, 0));
   TG = glm::scale(TG, glm::vec3(escalaP, escalaP, escalaP));
   TG = glm::translate(TG, -centrePatr);
   
@@ -374,6 +388,7 @@ void MyGLWidget::modelTransformVaca ()
   glm::mat4 TG(1.f);  // Matriu de transformació
   TG = glm::translate(TG, glm::vec3(1,-1,0));
   TG = glm::scale(TG, glm::vec3(escalaV, escalaV, escalaV));
+  TG = glm::rotate(TG, rotate, glm::vec3(0, 1, 0));
   TG = glm::rotate(TG, -(float)M_PI/2, glm::vec3(1, 0, 0));
   TG = glm::rotate(TG, -(float)M_PI/2, glm::vec3(0, 0, 1));
   TG = glm::translate(TG, -centreVaca);
@@ -545,6 +560,31 @@ void MyGLWidget::keyPressEvent(QKeyEvent* event)
       projectTransform ();
       break;
     }
+    case Qt::Key_R: { // rotem 30 graus
+      rotate += M_PI/6;
+    break;
+   }
+    case Qt::Key_X: {
+      glUniform1i(canviFrangesLoc, canviFranges);
+      if (canviFranges == 1) canviFranges = 0;
+      else canviFranges = 1;
+    break;
+   }
+    case Qt::Key_L: {
+      
+      if (focusEscena == 1) {
+          focusEscena = 0;
+          emit focusEsc(false);
+          emit focusCam(true);
+      }
+      else {
+          focusEscena = 1;
+          emit focusEsc(true);
+          emit focusCam(false);
+      }
+      glUniform1i(focusEscenaLoc, focusEscena);
+    break;
+   }
     default: event->ignore(); break;
   }
   update();
@@ -608,6 +648,20 @@ void MyGLWidget::mouseMoveEvent(QMouseEvent *e)
 void MyGLWidget::setZoom(int zoom) {
   makeCurrent();
   if (zoom < 180 and zoom > 0) fov = zoom * (float) M_PI / 180.0;
+  update();
+}
+
+void MyGLWidget::setFocusCam() {
+  makeCurrent();
+  focusEscena = 0;
+  glUniform1i(focusEscenaLoc, focusEscena);
+  update();
+}
+
+void MyGLWidget::setFocusEsc() {
+  makeCurrent();
+  focusEscena=1;
+  glUniform1i(focusEscenaLoc, focusEscena);
   update();
 }
 

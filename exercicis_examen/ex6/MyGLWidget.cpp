@@ -10,6 +10,7 @@ MyGLWidget::MyGLWidget (QWidget* parent) : QOpenGLWidget(parent)
   perspectiva = true;
   DoingInteractive = NONE;
   radiEsc = sqrt(5);
+  rotate = 0;
     //escala = 1.0f;
 }
 
@@ -59,8 +60,8 @@ void MyGLWidget::paintGL ()
     
     // Activem el VAO per a pintar la vaca
     glBindVertexArray (VAO_Vaca);
-        modelTransformVaca ();
-
+    
+    modelTransformVaca ();
 
   // Pintem l'escena
   glDrawArrays(GL_TRIANGLES, 0, vaca.faces().size()*3);
@@ -363,6 +364,7 @@ void MyGLWidget::modelTransformPatricioA ()
 {
   glm::mat4 TG(1.f);  // Matriu de transformació
   TG = glm::translate(TG, glm::vec3(1,-0.5,0));
+  TG = glm::rotate(TG, rotate, glm::vec3(0, 1, 0));
   TG = glm::scale(TG, glm::vec3(escalaP, escalaP, escalaP));
   TG = glm::translate(TG, -centrePatr);
   
@@ -374,6 +376,7 @@ void MyGLWidget::modelTransformVaca ()
   glm::mat4 TG(1.f);  // Matriu de transformació
   TG = glm::translate(TG, glm::vec3(1,-1,0));
   TG = glm::scale(TG, glm::vec3(escalaV, escalaV, escalaV));
+  TG = glm::rotate(TG, rotate, glm::vec3(0, 1, 0));
   TG = glm::rotate(TG, -(float)M_PI/2, glm::vec3(1, 0, 0));
   TG = glm::rotate(TG, -(float)M_PI/2, glm::vec3(0, 0, 1));
   TG = glm::translate(TG, -centreVaca);
@@ -545,6 +548,10 @@ void MyGLWidget::keyPressEvent(QKeyEvent* event)
       projectTransform ();
       break;
     }
+    case Qt::Key_R: { // rotem 30 graus
+      rotate += M_PI/6;
+    break;
+   }
     default: event->ignore(); break;
   }
   update();
